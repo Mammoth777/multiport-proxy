@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiport Proxy - 配置管理</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🚀 Multiport Proxy</h1>
+      <p class="subtitle">多端口代理配置管理</p>
+    </header>
+
+    <main>
+      <div class="layout">
+        <!-- 左侧：配置面板 -->
+        <section class="panel config-panel">
+          <div class="panel-header">
+            <h2>📋 代理规则</h2>
+            <button class="btn btn-primary" onclick="showAddRuleForm()">+ 新增规则</button>
+          </div>
+
+          <div class="rules-list" id="rulesList">
+            <div class="loading">加载中...</div>
+          </div>
+        </section>
+
+        <!-- 右侧：日志面板 -->
+        <section class="panel log-panel">
+          <div class="panel-header">
+            <h2>📊 实时日志</h2>
+            <div class="log-controls">
+              <input type="text" id="logFilter" placeholder="筛选日志..." class="filter-input">
+              <button class="btn btn-small" onclick="clearLogs()">清空</button>
+            </div>
+          </div>
+
+          <div class="stats" id="stats">
+            <div class="stat-item">
+              <span class="label">总请求数：</span>
+              <span class="value" id="totalLogs">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="label">错误数：</span>
+              <span class="value" id="errorCount">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="label">平均耗时：</span>
+              <span class="value" id="avgDuration">0ms</span>
+            </div>
+          </div>
+
+          <div class="logs-container" id="logsContainer">
+            <div class="log-entry">
+              <p style="text-align: center; color: #999;">暂无日志</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- 新增/编辑规则 Modal -->
+  <div id="ruleModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">新增代理规则</h3>
+        <button class="close-btn" onclick="closeRuleForm()">&times;</button>
+      </div>
+
+      <form id="ruleForm" onsubmit="saveRule(event)">
+        <div class="form-group">
+          <label for="rulePort">本地监听端口 *</label>
+          <input type="number" id="rulePort" min="1" max="65535" required placeholder="3000">
+        </div>
+
+        <div class="form-group">
+          <label for="ruleTarget">目标服务地址 *</label>
+          <input type="url" id="ruleTarget" required placeholder="http://localhost:8000">
+        </div>
+
+        <div class="form-group">
+          <label for="ruleTimeout">超时时间 (ms)</label>
+          <input type="number" id="ruleTimeout" min="1000" value="30000" placeholder="30000">
+        </div>
+
+        <div class="form-group">
+          <label for="ruleRetries">重试次数</label>
+          <input type="number" id="ruleRetries" min="0" value="0" placeholder="0">
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" id="ruleCorsEnabled">
+            启用 CORS
+          </label>
+        </div>
+
+        <div class="form-group" id="corsOrigins" style="display: none;">
+          <label for="ruleCorsOrigins">CORS 来源 (逗号分隔)</label>
+          <input type="text" id="ruleCorsOrigins" placeholder="* 或 http://localhost:3000, http://localhost:3001">
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" id="ruleEnabled" checked>
+            启用此规则
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">保存</button>
+          <button type="button" class="btn btn-secondary" onclick="closeRuleForm()">取消</button>
+          <button type="button" class="btn btn-danger" id="deleteBtn" style="display: none;" onclick="deleteRule()">删除</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
