@@ -1,0 +1,19 @@
+# 源代码
+src/
+tsconfig.json
+
+# 开发依赖
+node_modules/
+.vscode/
+.idea/
+
+# 测试和文档（根据需要调整）
+TEST_GUIDE.md
+VERIFICATION.md
+PROJECT_SUMMARY.md
+QUICKSTART.md
+
+# 其他
+*.log
+.DS_Store
+pnpm-lock.yaml

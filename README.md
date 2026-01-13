@@ -2,6 +2,8 @@
 
 一个功能强大的多端口代理服务，支持动态配置和实时日志查看。
 
+![multiport-proxy-screenshot](./ScreenShot.png)
+
 ## Features
 
 - 🚀 **Web 配置界面** - 启动时自动打开 Web UI，轻松配置代理规则
@@ -10,6 +12,43 @@
 - 📊 **实时日志** - 在 Web 界面查看实时请求/响应日志，无需本地持久化
 - 💾 **配置保存** - 配置自动保存，重启后自动加载
 - 🎯 **零配置启动** - 开箱即用，无需复杂配置
+
+## 快速开始
+
+### 使用 npx（推荐）
+
+无需安装，直接运行：
+
+```bash
+npx @jachy/multiport-proxy
+```
+
+### 全局安装
+
+```bash
+npm install -g @jachy/multiport-proxy
+multiport-proxy
+```
+
+### 本地开发
+
+```bash
+# 克隆项目
+git clone <your-repo-url>
+cd multiport-proxy
+
+# 安装依赖
+pnpm install
+
+# 开发模式
+pnpm run dev
+
+# 构建
+pnpm run build
+
+# 运行构建后的版本
+pnpm start
+```
 
 ## 项目架构
 

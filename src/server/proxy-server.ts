@@ -30,6 +30,9 @@ export class ProxyServer {
       target: rule.targetUrl,
       timeout: rule.timeout || 30000,
       changeOrigin: true,
+      secure: false, // 允许自签名证书
+      followRedirects: true,
+      autoRewrite: true,
     });
 
     const server = http.createServer((req, res) => {
@@ -74,6 +77,11 @@ export class ProxyServer {
           return;
         }
 
+        // 详细的错误日志
+        console.error(`[${rule.localPort}] Proxy error:`, error.message);
+        console.error(`[${rule.localPort}] Request: ${req.method} ${req.url}`);
+        console.error(`[${rule.localPort}] Target: ${rule.targetUrl}`);
+
         this.logger.addLog({
           timestamp: Date.now(),
           localPort: rule.localPort,
@@ -89,6 +97,8 @@ export class ProxyServer {
           res.end(JSON.stringify({
             error: 'Bad Gateway',
             message: error.message,
+            target: rule.targetUrl,
+            path: req.url,
           }));
         }
       });
