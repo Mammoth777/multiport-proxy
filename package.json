@@ -1,6 +1,6 @@
 {
   "name": "@jachy/multiport-proxy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A multi-port proxy server with web UI configuration",
   "main": "dist/index.js",
   "bin": {
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "dev": "ts-node src/cli.ts",
-    "build": "tsc && chmod +x dist/cli.js",
+    "build": "tsc && cp -r src/web/ui dist/web/ && chmod +x dist/cli.js",
     "start": "node dist/cli.js",
     "prepublishOnly": "pnpm run build",
     "test": "echo \"Error: no test specified\" && exit 1"

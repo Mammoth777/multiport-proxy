@@ -23,8 +23,11 @@ async function main() {
 
   app.use(express.json());
 
-  // 静态文件服务
-  const uiDir = path.join(__dirname, 'web', 'ui');
+  // 静态文件服务 - 支持开发和构建环境
+  const isDev = process.env.NODE_ENV !== 'production';
+  const uiDir = isDev 
+    ? path.join(__dirname, 'web', 'ui')
+    : path.join(__dirname, '..', 'web', 'ui');
   app.use(express.static(uiDir));
 
   // API 路由
