@@ -121,7 +121,8 @@ async function saveRule(e) {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update rule');
+        const errorData = await response.json();
+        throw new Error(errorData.details || errorData.error || 'Failed to update rule');
       }
     } else {
       // 新增规则
@@ -132,7 +133,8 @@ async function saveRule(e) {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add rule');
+        const errorData = await response.json();
+        throw new Error(errorData.details || errorData.error || 'Failed to add rule');
       }
     }
 
