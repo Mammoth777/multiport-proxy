@@ -59,8 +59,9 @@ function showAddRuleForm() {
   document.getElementById('ruleTimeout').value = '30000';
   document.getElementById('ruleRetries').value = '0';
   document.getElementById('ruleEnabled').checked = true;
-  document.getElementById('ruleCorsEnabled').checked = false;
-  document.getElementById('corsOrigins').style.display = 'none';
+  document.getElementById('ruleCorsEnabled').checked = true;
+  const corsOrigins = document.getElementById('corsOrigins');
+  corsOrigins.style.display = 'block';
   document.getElementById('ruleModal').classList.add('show');
 }
 
